@@ -37,7 +37,7 @@ export default defineConfig({
 		// allowAllFormats: true,
 		rollupOptions: {
 			plugins: [visualizer()],
-			external: ['vue', 'vue-demi', 'js-cool'],
+			external: ['vue', 'vue-demi', 'pdfjs-dist'],
 			// input: {
 			// 	index: resolve(__dirname, 'src', 'index.js')
 			// },
@@ -59,7 +59,8 @@ export default defineConfig({
 				// format: 'esm',
 				globals: {
 					vue: 'Vue',
-					'vue-demi': 'VueDemi'
+					'vue-demi': 'VueDemi',
+					'pdfjs-dist': 'pdfjsLib'
 				}
 			}
 		}
