@@ -62,7 +62,7 @@
 		"@babel/preset-env": "^7.22.15",
 		"@babel/preset-typescript": "^7.22.15",
 		"@eslint-sets/eslint-config-vue3": "^5.8.0",
-		"@microsoft/api-extractor": "^7.36.4",
+		"@microsoft/api-extractor": "^7.37.0",
 		"@rollup/plugin-babel": "^6.0.3",
 		"@rollup/plugin-commonjs": "^25.0.4",
 		"@rollup/plugin-json": "^6.0.0",
