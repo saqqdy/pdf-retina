@@ -1,7 +1,7 @@
 {
 	"name": "pdf-retina",
 	"description": "PDF preview component for mobile with Retina display support",
-	"version": "1.0.0-beta.1",
+	"version": "1.0.0-beta.3",
 	"packageManager": "pnpm@8.6.5",
 	"main": "dist/index.js",
 	"module": "dist/index.mjs",

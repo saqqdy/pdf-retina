@@ -12,14 +12,22 @@ import {
 	ref,
 	shallowRef
 } from 'vue-demi'
-import pdfjsLib, { type PDFDocumentProxy } from 'pdfjs-dist'
+import * as pdfjsLib from 'pdfjs-dist'
+import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { awaitTo as to } from 'js-cool'
 // import type { PdfRetina } from './types'
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-	'pdfjs-dist/build/pdf.worker.entry.js',
-	import.meta.url
+// import worker from 'pdfjs-dist/legacy/build/pdf.worker.entry.js?worker&inline'
+// pdfjsLib.GlobalWorkerOptions.workerSrc = worker
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = new Worker(
+	// 'pdfjs-dist/build/pdf.worker.entry.js?worker&inline'
+	new URL('pdfjs-dist/build/pdf.worker.entry.js?worker&inline', import.meta.url)
 ).toString()
+// pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+// 	'pdfjs-dist/build/pdf.worker.entry.js',
+// 	import.meta.url
+// ).toString()
 // const cMapUrl = new URL('pdfjs-dist/cmaps', import.meta.url).toString()
 
 export const props = {
@@ -106,6 +114,13 @@ export default defineComponent({
 		 * get pdf data
 		 */
 		const getPdf = async (url?: string) => {
+			// const result = await Promise.all([
+			// 	// import('pdfjs-dist'),
+			// 	import('pdfjs-dist/legacy/build/pdf.worker.entry.js?worker&inline')
+			// ])
+			// // PDF = result[0]
+			// pdfjsLib.GlobalWorkerOptions.workerSrc = result[0].default
+			console.log(2000, url || props.url)
 			// pdfData = atob(data); // 解码base64
 			const [err, pdf] = await to(
 				pdfjsLib.getDocument({
@@ -190,8 +205,16 @@ export default defineComponent({
 		})
 
 		onBeforeMount(() => {
+			console.log(100)
 			getPdf()
 		})
+
+		// return {
+		// 	canvasRef,
+		// 	rotate,
+		// 	zoomIn,
+		// 	zoomOut
+		// }
 
 		return () =>
 			h(
@@ -247,4 +270,19 @@ export default defineComponent({
 		// 	</div>
 		// )
 	}
+	// render() {
+	// 	return (
+	// 		<div
+	// 		// isOpened={this.visible}
+	// 		// class="wl-agree-privacy"
+	// 		// cancelText=""
+	// 		// confirmText=""
+	// 		// onClose={this.handleDisagree}
+	// 		// onCancel={this.handleDisagree}
+	// 		// onConfirm={this.handleAgree}
+	// 		>
+	// 			333
+	// 		</div>
+	// 	)
+	// }
 })
