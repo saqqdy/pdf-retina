@@ -128,8 +128,8 @@ devDependencies:
     specifier: ^29.1.1
     version: 29.1.1(@babel/core@7.22.17)(esbuild@0.14.54)(jest@29.6.4)(typescript@5.2.2)
   ts-morph:
-    specifier: ^19.0.0
-    version: 19.0.0
+    specifier: ^20.0.0
+    version: 20.0.0
   tsnd:
     specifier: ^1.1.0
     version: 1.1.0
@@ -2692,8 +2692,8 @@ packages:
     engines: {node: '>= 10'}
     dev: true
 
-  /@ts-morph/common@0.20.0:
-    resolution: {integrity: sha512-7uKjByfbPpwuzkstL3L5MQyuXPSKdoNG93Fmi2JoDcTf3pEP731JdRFAduRVkOs8oqxPsXKA+ScrWkdQ8t/I+Q==}
+  /@ts-morph/common@0.21.0:
+    resolution: {integrity: sha512-ES110Mmne5Vi4ypUKrtVQfXFDtCsDXiUiGxF6ILVlE90dDD4fdpC1LSjydl/ml7xJWKSDZwUYD2zkOePMSrPBA==}
     dependencies:
       fast-glob: 3.3.1
       minimatch: 7.4.6
@@ -3147,6 +3147,7 @@ packages:
       '@vueuse/shared': 10.4.1(vue@3.3.4)
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -3196,6 +3197,7 @@ packages:
       focus-trap: 7.5.2
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -3208,6 +3210,7 @@ packages:
     dependencies:
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -9005,10 +9008,10 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /ts-morph@19.0.0:
-    resolution: {integrity: sha512-D6qcpiJdn46tUqV45vr5UGM2dnIEuTGNxVhg0sk5NX11orcouwj6i1bMqZIz2mZTZB1Hcgy7C3oEVhAT+f6mbQ==}
+  /ts-morph@20.0.0:
+    resolution: {integrity: sha512-JVmEJy2Wow5n/84I3igthL9sudQ8qzjh/6i4tmYCm6IqYyKFlNbJZi7oBdjyqcWSWYRu3CtL0xbT6fS03ESZIg==}
     dependencies:
-      '@ts-morph/common': 0.20.0
+      '@ts-morph/common': 0.21.0
       code-block-writer: 12.0.0
     dev: true
 
@@ -9410,6 +9413,7 @@ packages:
       - '@algolia/client-search'
       - '@types/node'
       - '@types/react'
+      - '@vue/composition-api'
       - async-validator
       - axios
       - change-case
