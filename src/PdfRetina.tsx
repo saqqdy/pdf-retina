@@ -12,18 +12,19 @@ import {
 	ref,
 	shallowRef
 } from 'vue-demi'
-import * as pdfjsLib from 'pdfjs-dist'
+// import * as pdfjsLib from 'pdfjs-dist'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
-import { awaitTo as to } from 'js-cool'
+import { mountJs, awaitTo as to } from 'js-cool'
+import './index.less'
 // import type { PdfRetina } from './types'
 
 // import worker from 'pdfjs-dist/legacy/build/pdf.worker.entry.js?worker&inline'
 // pdfjsLib.GlobalWorkerOptions.workerSrc = worker
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = new Worker(
-	// 'pdfjs-dist/build/pdf.worker.entry.js?worker&inline'
-	new URL('pdfjs-dist/build/pdf.worker.entry.js?worker&inline', import.meta.url)
-).toString()
+// pdfjsLib.GlobalWorkerOptions.workerSrc = new Worker(
+// 	// 'pdfjs-dist/build/pdf.worker.entry.js?worker&inline'
+// 	new URL('pdfjs-dist/build/pdf.worker.entry.js?worker&inline', import.meta.url)
+// ).toString()
 // pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
 // 	'pdfjs-dist/build/pdf.worker.entry.js',
 // 	import.meta.url
@@ -33,7 +34,18 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new Worker(
 export const props = {
 	url: {
 		type: String,
-		default: true
+		required: true,
+		default: ''
+	},
+	pdfWorkerUrl: {
+		type: String,
+		required: true,
+		default: ''
+	},
+	cMapUrl: {
+		type: String,
+		required: true,
+		default: ''
 	}
 } as const
 
@@ -44,7 +56,10 @@ export default defineComponent({
 	props,
 	emits: ['click'],
 	setup(props, { slots, emit }) {
-		const canvasRef = ref(null)
+		const canvasBoxRef = ref(null)
+		const canvasList = ref([])
+		const canvasRef = ref([])
+		const PDFJS_CDN_PREFIX = 'https://unpkg.com/pdfjs-dist@3.9.179'
 		const DEVICE_PIXEL_RATIO = window.devicePixelRatio || 1
 		const PDF_SCALE_MAX = 5 * DEVICE_PIXEL_RATIO
 		const PDF_SCALE_MIN = 0.2 * DEVICE_PIXEL_RATIO
@@ -62,8 +77,7 @@ export default defineComponent({
 			if (page) {
 				const canvas = document.createElement('canvas') // 在页面中创建canvas
 				canvas.id = 'canvas_' + pageNumber
-				const el_canvasDiv = document.querySelector('#canvasDiv')
-				el_canvasDiv.appendChild(canvas)
+				canvasBoxRef.value && canvasBoxRef.value.appendChild(canvas)
 
 				const context = canvas.getContext('2d')
 				const viewport = page.getViewport(viewOption)
@@ -95,12 +109,11 @@ export default defineComponent({
 				// 横屏, 需要去掉旋转， 放大缩小的按钮样式需要调整
 				nextTick(() => {
 					viewOption.rotation = 0
-					const parentNode = document.getElementById('canvasDiv')
 					const canvasElements = document.getElementsByTagName('canvas')
 					const pageCount = pdfView.value.numPages
 					// 删除原有的canvas元素
 					for (let i = canvasElements.length - 1; i >= 0; i--) {
-						parentNode && parentNode.removeChild(canvasElements[i])
+						canvasBoxRef.value && canvasBoxRef.value.removeChild(canvasElements[i])
 					}
 					// 重新生成
 					for (let i = 1; i <= pageCount; i++) {
@@ -114,19 +127,16 @@ export default defineComponent({
 		 * get pdf data
 		 */
 		const getPdf = async (url?: string) => {
-			// const result = await Promise.all([
-			// 	// import('pdfjs-dist'),
-			// 	import('pdfjs-dist/legacy/build/pdf.worker.entry.js?worker&inline')
-			// ])
-			// // PDF = result[0]
-			// pdfjsLib.GlobalWorkerOptions.workerSrc = result[0].default
+			await mountJs(`${PDFJS_CDN_PREFIX}/build/pdf.min.js`)
+			pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN_PREFIX}/build/pdf.worker.min.js`
+
 			console.log(2000, url || props.url)
 			// pdfData = atob(data); // 解码base64
 			const [err, pdf] = await to(
 				pdfjsLib.getDocument({
 					// data: pdfData,
 					url: url || props.url,
-					cMapUrl: 'http://unpkg.com/pdfjs-dist@3.9.179/cmaps/',
+					cMapUrl: `${PDFJS_CDN_PREFIX}/cmaps/`,
 					cMapPacked: true
 				}).promise
 			)
@@ -151,12 +161,11 @@ export default defineComponent({
 				viewOption.rotation = 90
 				isRotate.value = true
 			}
-			const parentNode = document.getElementById('canvasDiv')
 			const canvasElements = document.getElementsByTagName('canvas')
 			const pageCount = pdfView.value.numPages
 			// 删除原有的canvas元素
 			for (let i = canvasElements.length - 1; i >= 0; i--) {
-				parentNode && parentNode.removeChild(canvasElements[i])
+				canvasBoxRef.value && canvasBoxRef.value.removeChild(canvasElements[i])
 			}
 			// 重新生成
 			for (let i = 1; i <= pageCount; i++) {
@@ -177,12 +186,12 @@ export default defineComponent({
 			}
 			viewOption.scale = Math.round(viewOption.scale + scaleNum)
 
-			const parentNode = document.getElementById('canvasDiv')
+			// const parentNode = document.getElementById('canvasDiv')
 			const canvasElements = document.getElementsByTagName('canvas')
 			const pageCount = pdfView.value.numPages
 			// 删除原有的canvas元素
 			for (let i = canvasElements.length - 1; i >= 0; i--) {
-				parentNode && parentNode.removeChild(canvasElements[i])
+				canvasBoxRef.value && canvasBoxRef.value.removeChild(canvasElements[i])
 			}
 			// 重新生成
 			for (let i = 1; i <= pageCount; i++) {
@@ -205,12 +214,12 @@ export default defineComponent({
 		})
 
 		onBeforeMount(() => {
-			console.log(100)
+			// props.pdfWorkerUrl && (pdfjsLib.GlobalWorkerOptions.workerSrc = props.pdfWorkerUrl)
 			getPdf()
 		})
 
 		// return {
-		// 	canvasRef,
+		// 	canvasBoxRef,
 		// 	rotate,
 		// 	zoomIn,
 		// 	zoomOut
@@ -220,46 +229,52 @@ export default defineComponent({
 			h(
 				'div',
 				{
-					ref: canvasRef,
+					ref: canvasBoxRef,
 					class: 'canvas-content'
 				},
-				h(
-					'div',
-					{
-						class: ['ctrl', 'ctrl-rotate']
-					},
-					[
-						h(
-							'div',
-							{
-								class: 'pdf-retina-rotate',
-								onClick: rotate
-							},
-							h('i', {
-								class: ['iconfont', 'icon-xuanzhuan']
-							})
-						),
-						h(
-							'div',
-							{
-								class: 'pdf-retina-zoom-in',
-								onClick: zoomIn
-							},
-							'+'
-						),
-						h(
-							'div',
-							{
-								class: 'pdf-retina-zoom-out',
-								onClick: zoomOut
-							},
-							'-'
-						)
-					]
-				)
+				[
+					h(
+						'div',
+						{
+							class: ['ctrl', 'ctrl-rotate']
+						},
+						[
+							h(
+								'div',
+								{
+									class: 'pdf-retina-rotate',
+									onClick: rotate
+								},
+								h('i', {
+									class: ['iconfont', 'icon-xuanzhuan']
+								})
+							),
+							h(
+								'div',
+								{
+									class: 'pdf-retina-zoom-in',
+									onClick: zoomIn
+								},
+								'+'
+							),
+							h(
+								'div',
+								{
+									class: 'pdf-retina-zoom-out',
+									onClick: zoomOut
+								},
+								'-'
+							)
+						]
+					),
+					canvasList.value.map(({ id }, index) => {
+						return h('canvas', { ref: canvasRef, key: index })
+					})
+				]
 			)
 		// return () => (
-		// 	<div id="canvasDiv" class="canvas-content">
+		// 	<div ref="canvasBoxRef" id="canvasDiv" class="canvas-content">
+		// 		333
 		// 		{/* <div class="ctrl" :class="{ 'ctrl-rotate': 'isRotate' }">
 		//             <div class="scale-btn" @click="rotate">
 		//                 <i class="iconfont icon-xuanzhuan"></i>
