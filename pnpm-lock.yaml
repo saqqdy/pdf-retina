@@ -12,8 +12,8 @@ dependencies:
     specifier: ^5.7.2
     version: 5.7.2
   pdfjs-dist:
-    specifier: ^3.10.111
-    version: 3.10.111
+    specifier: ^4.0.189
+    version: 4.0.189
   tslib:
     specifier: ^2.6.2
     version: 2.6.2
@@ -3147,6 +3147,7 @@ packages:
       '@vueuse/shared': 10.4.1(vue@3.3.4)
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -3196,6 +3197,7 @@ packages:
       focus-trap: 7.5.2
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -3208,6 +3210,7 @@ packages:
     dependencies:
       vue-demi: 0.14.6(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -7860,8 +7863,8 @@ packages:
       through: 2.3.8
     dev: true
 
-  /pdfjs-dist@3.10.111:
-    resolution: {integrity: sha512-+SXXGN/3YTNQSK5Ae7EyqQuR+4IAsNunJq/Us5ByOkRJ45qBXXOwkiWi3RIDU+CyF+ak5eSWXl2FQW2PKBrsRA==}
+  /pdfjs-dist@4.0.189:
+    resolution: {integrity: sha512-5IWbLRJjQJhk3cu3nNFAvIYoSzT8xRYlRkFCIV1tn7hK1eq9H+6vOP0ytJhZz9YI35IXlu33uQspvmYO6Oir4g==}
     engines: {node: '>=18'}
     optionalDependencies:
       canvas: 2.11.2
@@ -9410,6 +9413,7 @@ packages:
       - '@algolia/client-search'
       - '@types/node'
       - '@types/react'
+      - '@vue/composition-api'
       - async-validator
       - axios
       - change-case
