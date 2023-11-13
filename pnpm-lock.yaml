@@ -10,7 +10,7 @@ dependencies:
     version: 1.7.2(vue@3.3.4)
   js-cool:
     specifier: ^5.7.2
-    version: 5.7.2
+    version: 5.15.1
   pdfjs-dist:
     specifier: ^3.10.111
     version: 3.10.111
@@ -19,7 +19,7 @@ dependencies:
     version: 2.6.2
   vue-demi:
     specifier: ^0.14.6
-    version: 0.14.6(vue@3.3.4)
+    version: 0.14.6(@vue/composition-api@1.7.2)(vue@3.3.4)
 
 devDependencies:
   '@babel/core':
@@ -108,10 +108,10 @@ devDependencies:
     version: 1.4.0
   reinstaller:
     specifier: ^3.0.2
-    version: 3.0.2(debug@4.3.4)(js-cool@5.7.2)(typescript@5.2.2)
+    version: 3.0.2(debug@4.3.4)(js-cool@5.15.1)(typescript@5.2.2)
   rm-all:
     specifier: ^1.1.1
-    version: 1.1.1(js-cool@5.7.2)
+    version: 1.1.1(js-cool@5.15.1)
   rollup:
     specifier: ^3.29.0
     version: 3.29.0
@@ -156,7 +156,7 @@ devDependencies:
     version: 2.0.0(vite@4.4.9)
   vitepress:
     specifier: 1.0.0-rc.10
-    version: 1.0.0-rc.10(@algolia/client-search@4.19.1)(@types/node@20.6.0)(less@4.2.0)(search-insights@2.8.2)(terser@5.19.4)
+    version: 1.0.0-rc.10(@algolia/client-search@4.19.1)(@types/node@20.6.0)(@vue/composition-api@1.7.2)(less@4.2.0)(search-insights@2.8.2)(terser@5.19.4)
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -3094,7 +3094,6 @@ packages:
       vue: '>= 2.5 < 2.7'
     dependencies:
       vue: 3.3.4
-    dev: false
 
   /@vue/devtools-api@6.5.0:
     resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
@@ -3139,18 +3138,19 @@ packages:
   /@vue/shared@3.3.4:
     resolution: {integrity: sha512-7OjdcV8vQ74eiz1TZLzZP4JwqM5fA94K6yntPS5Z25r9HDuGNzaGdgvwKYq6S+MxwF0TFRwe50fIR/MYnakdkQ==}
 
-  /@vueuse/core@10.4.1(vue@3.3.4):
+  /@vueuse/core@10.4.1(@vue/composition-api@1.7.2)(vue@3.3.4):
     resolution: {integrity: sha512-DkHIfMIoSIBjMgRRvdIvxsyboRZQmImofLyOHADqiVbQVilP8VVHDhBX2ZqoItOgu7dWa8oXiNnScOdPLhdEXg==}
     dependencies:
       '@types/web-bluetooth': 0.0.17
       '@vueuse/metadata': 10.4.1
-      '@vueuse/shared': 10.4.1(vue@3.3.4)
-      vue-demi: 0.14.6(vue@3.3.4)
+      '@vueuse/shared': 10.4.1(@vue/composition-api@1.7.2)(vue@3.3.4)
+      vue-demi: 0.14.6(@vue/composition-api@1.7.2)(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
-  /@vueuse/integrations@10.4.1(focus-trap@7.5.2)(vue@3.3.4):
+  /@vueuse/integrations@10.4.1(@vue/composition-api@1.7.2)(focus-trap@7.5.2)(vue@3.3.4):
     resolution: {integrity: sha512-uRBPyG5Lxoh1A/J+boiioPT3ELEAPEo4t8W6Mr4yTKIQBeW/FcbsotZNPr4k9uz+3QEksMmflWloS9wCnypM7g==}
     peerDependencies:
       async-validator: '*'
@@ -3191,11 +3191,12 @@ packages:
       universal-cookie:
         optional: true
     dependencies:
-      '@vueuse/core': 10.4.1(vue@3.3.4)
-      '@vueuse/shared': 10.4.1(vue@3.3.4)
+      '@vueuse/core': 10.4.1(@vue/composition-api@1.7.2)(vue@3.3.4)
+      '@vueuse/shared': 10.4.1(@vue/composition-api@1.7.2)(vue@3.3.4)
       focus-trap: 7.5.2
-      vue-demi: 0.14.6(vue@3.3.4)
+      vue-demi: 0.14.6(@vue/composition-api@1.7.2)(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -3203,11 +3204,12 @@ packages:
     resolution: {integrity: sha512-2Sc8X+iVzeuMGHr6O2j4gv/zxvQGGOYETYXEc41h0iZXIRnRbJZGmY/QP8dvzqUelf8vg0p/yEA5VpCEu+WpZg==}
     dev: true
 
-  /@vueuse/shared@10.4.1(vue@3.3.4):
+  /@vueuse/shared@10.4.1(@vue/composition-api@1.7.2)(vue@3.3.4):
     resolution: {integrity: sha512-vz5hbAM4qA0lDKmcr2y3pPdU+2EVw/yzfRsBdu+6+USGa4PxqSQRYIUC9/NcT06y+ZgaTsyURw2I9qOFaaXHAg==}
     dependencies:
-      vue-demi: 0.14.6(vue@3.3.4)
+      vue-demi: 0.14.6(@vue/composition-api@1.7.2)(vue@3.3.4)
     transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
     dev: true
 
@@ -3465,6 +3467,12 @@ packages:
     resolution: {integrity: sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==}
     engines: {node: '>= 0.4'}
     dev: true
+
+  /await-to-done@1.0.1:
+    resolution: {integrity: sha512-5a4IKtf3CJDW+KvAUYVlBtOmiHPxbbIBvOFIGZhF/36XvWpSTyBJTHNW0n4vyzELiS8hJF7/E6TU0x4lTicNHQ==}
+    dependencies:
+      js-cool: 5.15.1
+      tslib: 2.6.2
 
   /aws-sign2@0.7.0:
     resolution: {integrity: sha512-08kcGqnYf/YmjoRhfxyu+CLxBjUtHLXLXX/vUfx9l2LYzG3c1m61nrpyFUZI6zeS+Li/wWMMidD9KgrqtGq3mA==}
@@ -6611,13 +6619,14 @@ packages:
       mount-image: 1.2.0
       mount-script: 1.2.0
       mount-style: 1.2.0
-      use-downloads: 1.4.0
+      use-downloads: 1.5.1
     dev: true
 
-  /js-cool@5.7.2:
-    resolution: {integrity: sha512-TEBctLzE72+Hzl8lY5oIjSsPSzalrS9JjLiwsUb3RqtinIbi+NyxInPaIDlLIpGxo+zI1q3N7q6ZBmkz8j3hZg==}
+  /js-cool@5.15.1:
+    resolution: {integrity: sha512-mOVFPLqPvoMdNOktpSRPP/41zRjy9Bd9S3KrE/f5ot83AeSlPwbbI7jldmmxjTRtn2yAuEcSEr6UtnkOd9pf7Q==}
     engines: {node: '>=12.20'}
     dependencies:
+      await-to-done: 1.0.1
       load-source: 1.2.0
       mount-css: 1.2.0
       mount-image: 1.2.0
@@ -6625,7 +6634,7 @@ packages:
       mount-style: 1.2.0
       os-lang: 3.2.0
       tslib: 2.6.2
-      use-downloads: 1.4.0
+      use-downloads: 1.5.1
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -8190,7 +8199,7 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /reinstaller@3.0.2(debug@4.3.4)(js-cool@5.7.2)(typescript@5.2.2):
+  /reinstaller@3.0.2(debug@4.3.4)(js-cool@5.15.1)(typescript@5.2.2):
     resolution: {integrity: sha512-VLjzE9tQMghK53x1Ccx96AEdRRe+dKq5zsnSNFLf1d7QsLAaRV0yX3lU1djgIaPYNSjDOXBRXjt8Y/GFTrHt/A==}
     hasBin: true
     peerDependencies:
@@ -8204,7 +8213,7 @@ packages:
       cosmiconfig: 8.3.5(typescript@5.2.2)
       debug: 4.3.4
       global-modules: 2.0.0
-      js-cool: 5.7.2
+      js-cool: 5.15.1
       monorepo-root: 2.5.1
       ora: 6.3.1
       what-pm: 2.5.1
@@ -8307,7 +8316,7 @@ packages:
     dependencies:
       glob: 7.2.3
 
-  /rm-all@1.1.1(js-cool@5.7.2):
+  /rm-all@1.1.1(js-cool@5.15.1):
     resolution: {integrity: sha512-5n3SiDtp0BxHX485YhfbxR1RLtR9KlRTCj0hHahTufYEhUyE9ydy1nRtP4OG9kXifsYClu43gwkqcOnjpz/HPQ==}
     engines: {node: '>=12.20'}
     hasBin: true
@@ -8316,7 +8325,7 @@ packages:
     dependencies:
       '@node-kit/extra.fs': 3.2.0
       commander: 11.0.0
-      js-cool: 5.7.2
+      js-cool: 5.15.1
     dev: true
 
   /rollup-plugin-external-globals@0.6.1(rollup@3.29.0):
@@ -9267,8 +9276,8 @@ packages:
       punycode: 2.3.0
     dev: true
 
-  /use-downloads@1.4.0:
-    resolution: {integrity: sha512-h2t2c7cKx7YCQcM7Am68EW5Wh24fjR6astbTCj3HA4ZYlsjPdybBfSS1ZP7Bw+taFAhMFCL+7zfVJMeTNrWlcQ==}
+  /use-downloads@1.5.1:
+    resolution: {integrity: sha512-DOAlnvDzbXJLo2D+jMQ87qKhNBiV7p0RzDjDHLCmlyTOA6iVytQuyvVDcTK4UYz7U907YJkaOieWxXHGWy6+tg==}
 
   /util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
@@ -9391,15 +9400,15 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vitepress@1.0.0-rc.10(@algolia/client-search@4.19.1)(@types/node@20.6.0)(less@4.2.0)(search-insights@2.8.2)(terser@5.19.4):
+  /vitepress@1.0.0-rc.10(@algolia/client-search@4.19.1)(@types/node@20.6.0)(@vue/composition-api@1.7.2)(less@4.2.0)(search-insights@2.8.2)(terser@5.19.4):
     resolution: {integrity: sha512-+MsahIWqq5WUEmj6MR4obcKYbT7im07jZPCQPdNJExkeOSbOAJ4xypSLx88x7rvtzWHhHc5aXbOhCRvGEGjFrw==}
     hasBin: true
     dependencies:
       '@docsearch/css': 3.5.2
       '@docsearch/js': 3.5.2(@algolia/client-search@4.19.1)(search-insights@2.8.2)
       '@vue/devtools-api': 6.5.0
-      '@vueuse/core': 10.4.1(vue@3.3.4)
-      '@vueuse/integrations': 10.4.1(focus-trap@7.5.2)(vue@3.3.4)
+      '@vueuse/core': 10.4.1(@vue/composition-api@1.7.2)(vue@3.3.4)
+      '@vueuse/integrations': 10.4.1(@vue/composition-api@1.7.2)(focus-trap@7.5.2)(vue@3.3.4)
       focus-trap: 7.5.2
       mark.js: 8.11.1
       minisearch: 6.1.0
@@ -9410,6 +9419,7 @@ packages:
       - '@algolia/client-search'
       - '@types/node'
       - '@types/react'
+      - '@vue/composition-api'
       - async-validator
       - axios
       - change-case
@@ -9440,7 +9450,7 @@ packages:
     resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
     dev: true
 
-  /vue-demi@0.14.6(vue@3.3.4):
+  /vue-demi@0.14.6(@vue/composition-api@1.7.2)(vue@3.3.4):
     resolution: {integrity: sha512-8QA7wrYSHKaYgUxDA5ZC24w+eHm3sYCbp0EzcDwKqN3p6HqtTCGR/GVsPyZW92unff4UlcSh++lmqDWN3ZIq4w==}
     engines: {node: '>=12'}
     hasBin: true
@@ -9452,6 +9462,7 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
+      '@vue/composition-api': 1.7.2(vue@3.3.4)
       vue: 3.3.4
 
   /vue-eslint-parser@9.3.1(eslint@8.49.0):
