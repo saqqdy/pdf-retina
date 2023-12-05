@@ -53,7 +53,7 @@
 	},
 	"dependencies": {
 		"js-cool": "^5.7.2",
-		"pdfjs-dist": "^3.10.111",
+		"pdfjs-dist": "^4.0.269",
 		"tslib": "^2.6.2",
 		"vue-demi": "^0.14.6"
 	},
