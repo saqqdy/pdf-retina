@@ -37,7 +37,13 @@ export default defineConfig({
 		// allowAllFormats: true,
 		rollupOptions: {
 			plugins: [visualizer()],
-			external: ['vue', 'vue-demi', 'pdfjs-dist'],
+			external: [
+				'vue',
+				'vue-demi',
+				'pdfjs-dist',
+				'pdfjs-dist/build/pdf.js',
+				'pdfjs-dist/build/pdf.min.js'
+			],
 			// input: {
 			// 	index: resolve(__dirname, 'src', 'index.js')
 			// },
@@ -60,7 +66,9 @@ export default defineConfig({
 				globals: {
 					vue: 'Vue',
 					'vue-demi': 'VueDemi',
-					'pdfjs-dist': 'pdfjsLib'
+					'pdfjs-dist': 'pdfjsLib',
+					'pdfjs-dist/build/pdf.js': 'pdfjsLib',
+					'pdfjs-dist/build/pdf.min.js': 'pdfjsLib'
 				}
 			}
 		}

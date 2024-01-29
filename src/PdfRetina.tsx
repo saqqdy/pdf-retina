@@ -12,7 +12,7 @@ import {
 	ref,
 	shallowRef
 } from 'vue-demi'
-// import * as pdfjsLib from 'pdfjs-dist'
+// import * as pdfjsLib from 'pdfjs-dist/build/pdf.js'
 import type { PDFDocumentProxy } from 'pdfjs-dist'
 import { mountJs, awaitTo as to } from 'js-cool'
 import './index.less'
@@ -30,6 +30,12 @@ import './index.less'
 // 	import.meta.url
 // ).toString()
 // const cMapUrl = new URL('pdfjs-dist/cmaps', import.meta.url).toString()
+
+declare global {
+	interface Window {
+		pdfjsLib: any
+	}
+}
 
 export const props = {
 	url: {
@@ -51,12 +57,14 @@ export const props = {
 
 export type PdfRetinaProps = ExtractPropTypes<typeof props>
 
+const PDF = window.pdfjsLib
+
 export default defineComponent({
 	name: 'PdfRetina',
 	props,
 	emits: ['click'],
 	setup(props, { slots, emit }) {
-		const canvasBoxRef = ref(null)
+		const canvasBoxRef = ref<HTMLElement | null>(null)
 		const canvasList = ref([])
 		const canvasRef = ref([])
 		const PDFJS_CDN_PREFIX = 'https://unpkg.com/pdfjs-dist@3.9.179'
@@ -79,7 +87,7 @@ export default defineComponent({
 				canvas.id = 'canvas_' + pageNumber
 				canvasBoxRef.value && canvasBoxRef.value.appendChild(canvas)
 
-				const context = canvas.getContext('2d')
+				const context = canvas.getContext('2d')!
 				const viewport = page.getViewport(viewOption)
 				canvas.height = Math.ceil(viewport.height)
 				canvas.width = Math.ceil(viewport.width)
@@ -101,13 +109,13 @@ export default defineComponent({
 		}
 
 		const resize = () => {
-			if (!pdfView.value) return
 			// 判断横竖屏
 			const width = document.documentElement.clientWidth
 			const height = document.documentElement.clientHeight
 			if (width > height) {
 				// 横屏, 需要去掉旋转， 放大缩小的按钮样式需要调整
 				nextTick(() => {
+					if (!pdfView.value) return
 					viewOption.rotation = 0
 					const canvasElements = document.getElementsByTagName('canvas')
 					const pageCount = pdfView.value.numPages
@@ -127,20 +135,20 @@ export default defineComponent({
 		 * get pdf data
 		 */
 		const getPdf = async (url?: string) => {
-			await mountJs(`${PDFJS_CDN_PREFIX}/build/pdf.min.js`)
-			pdfjsLib.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN_PREFIX}/build/pdf.worker.min.js`
+			// await mountJs(`${PDFJS_CDN_PREFIX}/build/pdf.min.js`)
+			console.log(2000, url || props.url, PDF)
+			PDF.GlobalWorkerOptions.workerSrc = `${PDFJS_CDN_PREFIX}/build/pdf.worker.min.js`
 
-			console.log(2000, url || props.url)
 			// pdfData = atob(data); // 解码base64
 			const [err, pdf] = await to(
-				pdfjsLib.getDocument({
+				PDF.getDocument({
 					// data: pdfData,
 					url: url || props.url,
 					cMapUrl: `${PDFJS_CDN_PREFIX}/cmaps/`,
 					cMapPacked: true
-				}).promise
+				}).promise as Promise<PDFDocumentProxy>
 			)
-
+			console.log(err, pdf)
 			if (err) {
 				console.error('failed to get PDF data: ', err)
 				return
@@ -206,6 +214,7 @@ export default defineComponent({
 		const zoomOut = event => zoom(-0.2)
 
 		onMounted(() => {
+			console.log(3005)
 			window.addEventListener('resize', resize, false)
 		})
 
@@ -214,7 +223,8 @@ export default defineComponent({
 		})
 
 		onBeforeMount(() => {
-			// props.pdfWorkerUrl && (pdfjsLib.GlobalWorkerOptions.workerSrc = props.pdfWorkerUrl)
+			console.log(3004)
+			// props.pdfWorkerUrl && (PDF.GlobalWorkerOptions.workerSrc = props.pdfWorkerUrl)
 			getPdf()
 		})
 

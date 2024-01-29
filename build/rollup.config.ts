@@ -105,7 +105,7 @@ function createEntry(config: Config) {
 		config.input.endsWith('prod.js')
 
 	const _config: Options = {
-		external: ['pdfjs-dist'],
+		external: ['pdfjs-dist', 'pdfjs-dist/build/pdf.js', 'pdfjs-dist/build/pdf.min.js'],
 		input: config.input,
 		plugins: [],
 		output: {
@@ -115,7 +115,9 @@ function createEntry(config: Config) {
 			extend: true,
 			plugins: [],
 			globals: {
-				'pdfjs-dist': 'PDF'
+				'pdfjs-dist': 'pdfjsLib',
+				'pdfjs-dist/build/pdf.js': 'pdfjsLib',
+				'pdfjs-dist/build/pdf.min.js': 'pdfjsLib'
 			}
 		},
 		onwarn: (msg: any, warn) => {
